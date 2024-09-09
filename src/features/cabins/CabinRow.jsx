@@ -14,18 +14,8 @@ import ConfirmDelete from "../../ui/ConfirmDelete";
 import { deleteCabin } from "../../services/apiCabins-v1";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
-
-const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
+import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 const Img = styled.img`
   display: block;
@@ -80,49 +70,56 @@ function CabinRow({ cabin }) {
   }
 
   return (
-    <>
-      <TableRow role="row">
-        <Img src={image} />
-        <Cabin>{name}</Cabin>
-        <div>Fits up to {maxCapacity} guests</div>
-        <Price>{formatCurrency(regularPrice)}</Price>
-        {discount ? (
-          <Discount>{formatCurrency(discount)}</Discount>
-        ) : (
-          <span>&mdash;</span>
-        )}
+    <Table.Row>
+      <Img src={image} />
+      <Cabin>{name}</Cabin>
+      <div>Fits up to {maxCapacity} guests</div>
+      <Price>{formatCurrency(regularPrice)}</Price>
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
 
-        <div>
-          <Button size="small" disabled={isCreating} onClick={handleDuplicate}>
-            <HiSquare2Stack />
-          </Button>
+      <div>
+        <Button size="small" disabled={isCreating} onClick={handleDuplicate}>
+          <HiSquare2Stack />
+        </Button>
 
-          <Modal>
-            <Modal.Open opens="edit">
-              <Button size="small">
-                <HiPencil />
-              </Button>
-            </Modal.Open>
-            <Modal.Window name="edit">
-              <CreateCabinForm cabinToEdit={cabin} />
-            </Modal.Window>
+        <Modal>
+          <Modal.Open opens="edit">
+            <Button size="small">
+              <HiPencil />
+            </Button>
+          </Modal.Open>
+          <Modal.Window name="edit">
+            <CreateCabinForm cabinToEdit={cabin} />
+          </Modal.Window>
 
-            <Modal.Open>
-              <Button size="small">
-                <HiTrash />
-              </Button>
-            </Modal.Open>
-            <Modal.Window>
-              <ConfirmDelete
-                onConfirm={() => {
-                  deleteCabin(cabinId);
-                }}
-              />
-            </Modal.Window>
-          </Modal>
-        </div>
-      </TableRow>
-    </>
+          <Modal.Open>
+            <Button size="small">
+              <HiTrash />
+            </Button>
+          </Modal.Open>
+          <Modal.Window>
+            <ConfirmDelete
+              onConfirm={() => {
+                deleteCabin(cabinId);
+              }}
+            />
+          </Modal.Window>
+        </Modal>
+        <Menus.Menu>
+          <Menus.Toggle id={cabinId} />
+
+          <Menus.List id={cabinId}>
+            <Menus.Button>Duplicate</Menus.Button>
+            <Menus.Button>Edit</Menus.Button>
+            <Menus.Button>Delete</Menus.Button>
+          </Menus.List>
+        </Menus.Menu>
+      </div>
+    </Table.Row>
   );
 }
 
