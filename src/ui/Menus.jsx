@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useState } from "react";
+import { createPortal } from "react-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const Menu = styled.div`
   display: flex;
@@ -30,7 +32,7 @@ const StyledToggle = styled.button`
 `;
 
 const StyledList = styled.ul`
-  position: fixed;
+  position: absolute;
 
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-md);
@@ -69,21 +71,30 @@ const MenusContext = createContext();
 
 function Menus({ children }) {
   const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState();
 
   const close = () => setOpenId("");
   const open = setOpenId;
   return (
-    <MenusContext.Provider value={{ openId, close, open }}>
+    <MenusContext.Provider
+      value={{ openId, close, open, position, setPosition }}
+    >
       {children}
     </MenusContext.Provider>
   );
 }
 
-function Toggle({ children, id }) {
-  const { openId, close, open } = useContext(MenusContext);
+function Toggle({ id }) {
+  const { openId, close, open, setPosition } = useContext(MenusContext);
 
-  function handleClick() {
-    if(openId)
+  function handleClick(e) {
+    const rect = e.target.closest("button").getBoundingClientRect();
+    console.log(openId);
+    setPosition({
+      x: window.innerWidth - rect.width - rect.x,
+      y: rect.y + rect.height + 8 + window.scrollY,
+    });
+    openId === "" || openId !== id ? open(id) : close();
   }
 
   return (
@@ -92,13 +103,29 @@ function Toggle({ children, id }) {
     </StyledToggle>
   );
 }
-function List({ children }) {
-  return <StyledList>{children}</StyledList>;
+function List({ id, children }) {
+  const { openId, position, close } = useContext(MenusContext);
+  const ref = useOutsideClick(close);
+  if (openId !== id) return null;
+  return createPortal(
+    <StyledList position={position} ref={ref}>
+      {children}
+    </StyledList>,
+    document.body
+  );
 }
-function Button({ children }) {
+function Button({ children, icon, onClick }) {
+  const { close } = useContext(MenusContext);
+  function handleClick() {
+    onClick?.();
+    close();
+  }
   return (
     <li>
-      <StyledButton>{children}</StyledButton>;
+      <StyledButton onClick={handleClick}>
+        <span>{icon}</span>
+        {children}
+      </StyledButton>
     </li>
   );
 }
