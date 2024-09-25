@@ -8,6 +8,7 @@ import Cabins from "./pages/Cabins";
 import AppLayout from "./AppLayout";
 import Account from "./pages/Account";
 import Bookings from "./pages/Bookings";
+import Booking from "./pages/Booking";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
 import PageNotFound from "./pages/PageNotFound";
@@ -34,6 +35,7 @@ function App() {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="bookings" element={<Bookings />} />
+            <Route path="booking/:bookingId" element={<Booking />} />
             <Route path="cabins" element={<Cabins />} />
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
