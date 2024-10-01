@@ -89,7 +89,7 @@ function BookingDetail() {
             <ConfirmDelete
               resourceName="booking"
               onConfirm={() => {
-                deleteBookingRow(bookingId);
+                deleteBookingRow(bookingId, { onSettled: navigate(-1) });
               }}
             />
           </Modal.Window>
