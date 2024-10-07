@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
-import { useUSer } from "../features/authentication/useUSer";
 import Spinner from "./Spinner";
+import styled from "styled-components";
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../features/authentication/useUSer";
 
 const Fullpage = styled.div`
   height: 100px;
@@ -17,7 +18,7 @@ const Fullpage = styled.div`
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
   //1 Load the authenticated user
-  const { isAuthenticated, isLoading } = useUSer();
+  const { isAuthenticated, isLoading } = useUser();
 
   //2 if there is NO authenticated user redirect to the /Login
   useEffect(

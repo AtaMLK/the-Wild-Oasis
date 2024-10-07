@@ -1,5 +1,20 @@
-/* eslint-disable no-unused-vars */
 import supabase from "./supabase";
+
+export async function signup({ fullName, password, email }) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        fullName,
+        avatar: "",
+      },
+    },
+  });
+  if (error) throw new Error(error.message);
+
+  return data;
+}
 
 export async function login({ email, password }) {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -21,7 +36,13 @@ export async function getCurrentUser() {
 
   if (error) throw new Error(error.message);
 
-  console.log(data);
+  /*   console.log(data); */
 
   return data?.user;
+}
+
+export async function signOut() {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) throw new Error(error.message);
 }
