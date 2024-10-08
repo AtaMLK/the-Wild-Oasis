@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+/* import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -10,7 +10,7 @@ function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
-  const { updateUser, isUpdating } = useUpdateUser();
+   const { updateUser, isUpdating } = useUpdateUser();
 
   function onSubmit({ password }) {
     updateUser({ password }, { onSuccess: reset });
@@ -64,3 +64,4 @@ function UpdatePasswordForm() {
 }
 
 export default UpdatePasswordForm;
+ */
