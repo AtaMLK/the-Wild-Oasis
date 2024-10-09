@@ -43,7 +43,7 @@ function UpdateUserDataForm() {
       <FormRow lable="Full name">
         <Input
           type="text"
-          value={fullName}
+          value={fullName.fullName.fullName}
           onChange={(e) => setFullName(e.target.value)}
           id="fullName"
           disabled={isUpdating}
