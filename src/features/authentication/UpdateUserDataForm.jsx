@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
+import { useState } from 'react';
 
-import Button from "../../ui/Button";
-import FileInput from "../../ui/FileInput";
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
+import Button from '../../ui/Button';
+import FileInput from '../../ui/FileInput';
+import Form from '../../ui/Form';
+import FormRow from '../../ui/FormRow';
+import Input from '../../ui/Input';
 
-import { useUser } from "./useUser";
-import useUpdateUser from "./useUpdateUser";
+import { useUser } from './useUser';
+import useUpdateUser from './useUpdateUser';
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
@@ -43,8 +43,8 @@ function UpdateUserDataForm() {
       <FormRow lable="Full name">
         <Input
           type="text"
-          value={fullName.fullName.fullName}
-          onChange={(e) => setFullName(e.target.value)}
+          value={fullName}
+          onChange={e => setFullName(e.target.value)}
           id="fullName"
           disabled={isUpdating}
         />
@@ -53,7 +53,7 @@ function UpdateUserDataForm() {
         <FileInput
           id="avatar"
           accept="image/*"
-          onChange={(e) => setAvatar(e.target.files[0])}
+          onChange={e => setAvatar(e.target.files[0])}
           disabled={isUpdating}
         />
       </FormRow>
