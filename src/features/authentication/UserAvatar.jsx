@@ -1,4 +1,6 @@
-import styled from "styled-components";
+/* eslint-disable no-unused-vars */
+import styled from 'styled-components';
+import { useUser } from './useUser';
 
 const StyledUserAvatar = styled.div`
   display: flex;
@@ -19,3 +21,26 @@ const Avatar = styled.img`
   border-radius: 50%;
   outline: 2px solid var(--color-grey-100);
 `;
+
+function UserAvatar() {
+  const { user } = useUser();
+  const { fullName, avatar } = user.user_metadata;
+
+  console.log(user); // Log out user object to inspect the fullName field
+
+  // Check if fullName is an object or string
+  const fullNameString =
+    typeof fullName === 'string' ? fullName : JSON.stringify(fullName);
+
+  return (
+    <StyledUserAvatar>
+      <Avatar
+        src={avatar || 'default-user.jpg'}
+        alt={`Avatar of ${fullNameString}`}
+      />
+      <span>{fullNameString}</span> {/* Render fullName as a string */}
+    </StyledUserAvatar>
+  );
+}
+
+export default UserAvatar;
