@@ -48,14 +48,17 @@ export async function signOut() {
   if (error) throw new Error(error.message);
 }
 
-export async function updateCurrentUser(fullName, password, avatar) {
+export async function updateCurrentUser({ fullName, password, avatar }) {
+  const { data: currentUser, error: fetchError } =
+    await supabase.auth.getUser();
+  if (fetchError) throw new Error(fetchError.message);
   //-1 Update password or fullName
 
-  let updateData = {};
-  if (password) updateData.password = password;
-  if (fullName) updateData.data = { data: { fullName } };
+  let updateData;
+  if (password) updateData = { password };
+  if (fullName) updateData = { fullName };
 
-  const { data, error } = supabase.auth.updateUser(updateData);
+  const { data, error } = await supabase.auth.updateUser(updateData);
 
   if (error) throw new Error(error.message);
   if (!avatar) return data;
@@ -73,6 +76,8 @@ export async function updateCurrentUser(fullName, password, avatar) {
   //-3 Update Avatar in the user
   const { data: updatedUser, error: error2 } = await supabase.auth.updateUser({
     data: {
+      ...currentUser.user_metadata,
+      fullName,
       avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
     },
   });

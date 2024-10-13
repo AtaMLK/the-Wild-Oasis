@@ -27,8 +27,15 @@ function UpdateUserDataForm() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!fullName) return;
-    updateUser({ fullName, avatar });
-    setFullName(currentFullName);
+    updateUser(
+      { fullName, avatar },
+      {
+        onSuccess: () => {
+          setAvatar(null);
+          e.target.reset();
+        },
+      }
+    );
   }
   function handleCancel() {
     setFullName(currentFullName);
@@ -43,7 +50,7 @@ function UpdateUserDataForm() {
       <FormRow lable="Full name">
         <Input
           type="text"
-          value={fullName.fullName.fullName}
+          value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           id="fullName"
           disabled={isUpdating}
