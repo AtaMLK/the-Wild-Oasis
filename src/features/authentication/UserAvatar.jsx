@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import styled from "styled-components";
-import { useUser } from "./useUser";
+import styled from 'styled-components';
+import { useUser } from './useUser';
 
 const StyledUserAvatar = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ function UserAvatar() {
   return (
     <StyledUserAvatar>
       <Avatar
-        src={avatar || "default-user.jpg"}
+        src={avatar || 'default-user.jpg'}
         alt={`Avatar of ${fullName}`}
       />
       <span>{fullName}</span>
