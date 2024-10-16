@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 
-import Form from "../../ui/Form";
-import FormRow from "../../ui/FormRow";
-import Input from "../../ui/Input";
-import useSettings from "./useSetting";
-import UseUpdateSetting from "./useUpdateSetting";
-import Spinner from "../../ui/Spinner";
+import Form from '../../ui/Form';
+import FormRow from '../../ui/FormRow';
+import Input from '../../ui/Input';
+import useSettings from './useSettings';
+import UseUpdateSetting from './useUpdateSetting';
+import Spinner from '../../ui/Spinner';
 
 function UpdateSettingsForm() {
   const {
@@ -42,7 +42,7 @@ function UpdateSettingsForm() {
           id="min-nights"
           defaultValue={minBookingLentgh}
           disabledi={isUpdating}
-          onBlur={(e) => handleUpdate(e, "minBookingLentgh")}
+          onBlur={e => handleUpdate(e, 'minBookingLentgh')}
         />
       </FormRow>
       <FormRow label="Maximum nights/booking">
@@ -52,7 +52,7 @@ function UpdateSettingsForm() {
           id="max-nights"
           defaultValue={maxBookingLentgh}
           disabledi={isUpdating}
-          onBlur={(e) => handleUpdate(e, "maxBookingLentgh")}
+          onBlur={e => handleUpdate(e, 'maxBookingLentgh')}
         />
       </FormRow>
       <FormRow label="Maximum guests/booking">
@@ -62,7 +62,7 @@ function UpdateSettingsForm() {
           id="max-guests"
           defaultValue={maxGuestsPerBooking}
           disabledi={isUpdating}
-          onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
+          onBlur={e => handleUpdate(e, 'maxGuestsPerBooking')}
         />
       </FormRow>
       <FormRow label="Breakfast price">
@@ -72,7 +72,7 @@ function UpdateSettingsForm() {
           id="breakfast-price"
           defaultValue={breakfastPrice}
           disabledi={isUpdating}
-          onBlur={(e) => handleUpdate(e, "breakfastPrice")}
+          onBlur={e => handleUpdate(e, 'breakfastPrice')}
         />
       </FormRow>
     </Form>
