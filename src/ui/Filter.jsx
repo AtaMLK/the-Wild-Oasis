@@ -51,11 +51,7 @@ function Filter({ filterField, options }) {
         <FilterButton
           key={option.value}
           onClick={() => handleClick(option.value)}
-<<<<<<< HEAD
-          active={option.value === currentFilter}
-=======
           active={option.value === currentFilter ? "true" : undefined}
->>>>>>> auth
           disabled={option.value === currentFilter}
         >
           {option.lable}

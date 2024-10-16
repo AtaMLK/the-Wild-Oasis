@@ -1,10 +1,6 @@
-import styled from "styled-components";
-import MainNav from "./MainNav";
-<<<<<<< HEAD
-import Uploader from "../data/Uploader";
-=======
->>>>>>> auth
-import Logo from "./Logo";
+import styled from 'styled-components';
+import MainNav from './MainNav';
+import Logo from './Logo';
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
@@ -21,10 +17,6 @@ function Sidebar() {
     <StyledSidebar>
       <Logo />
       <MainNav />
-<<<<<<< HEAD
-      <Uploader />
-=======
->>>>>>> auth
     </StyledSidebar>
   );
 }

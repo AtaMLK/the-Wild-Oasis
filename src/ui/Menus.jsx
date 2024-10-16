@@ -1,18 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-<<<<<<< HEAD
-import { createContext, useContext, useState } from "react";
-import { createPortal } from "react-dom";
-import { HiEllipsisVertical } from "react-icons/hi2";
-import styled from "styled-components";
-import useOutsideClick from "../hooks/useOutsideClick";
-=======
 import { createContext, useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { HiEllipsisVertical } from 'react-icons/hi2';
 import styled from 'styled-components';
 import useOutsideClick from '../hooks/useOutsideClick';
->>>>>>> auth
 
 const Menu = styled.div`
   display: flex;
@@ -78,17 +70,10 @@ const StyledButton = styled.button`
 const MenusContext = createContext();
 
 function Menus({ children }) {
-<<<<<<< HEAD
-  const [openId, setOpenId] = useState("");
-  const [position, setPosition] = useState();
-
-  const close = () => setOpenId("");
-=======
   const [openId, setOpenId] = useState('');
   const [position, setPosition] = useState();
 
   const close = () => setOpenId('');
->>>>>>> auth
   const open = setOpenId;
   return (
     <MenusContext.Provider
@@ -103,24 +88,16 @@ function Toggle({ id }) {
   const { openId, close, open, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
-<<<<<<< HEAD
-    const rect = e.target.closest("button").getBoundingClientRect();
-=======
     e.stopPropagation();
     console.log('click');
 
     const rect = e.target.closest('button').getBoundingClientRect();
->>>>>>> auth
     console.log(openId);
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8 + window.scrollY,
     });
-<<<<<<< HEAD
-    openId === "" || openId !== id ? open(id) : close();
-=======
     openId === '' || openId !== id ? open(id) : close();
->>>>>>> auth
   }
 
   return (
@@ -131,24 +108,16 @@ function Toggle({ id }) {
 }
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
-<<<<<<< HEAD
-  const ref = useOutsideClick(close);
-=======
 
   /* const ref = useOutsideClick(close); */
   const ref = useOutsideClick(() => close(), false);
 
->>>>>>> auth
   if (openId !== id) return null;
   return createPortal(
     <StyledList position={position} ref={ref}>
       {children}
     </StyledList>,
-<<<<<<< HEAD
-    document.body
-=======
     document.body,
->>>>>>> auth
   );
 }
 function Button({ children, icon, onClick }) {
