@@ -3,7 +3,7 @@ import { subDays } from "date-fns";
 import { useSearchParams } from "react-router-dom";
 import { getStaysAfterDate } from "../../services/apiBookings";
 
-export function useReccentStays() {
+export function useRecentStays() {
   const [searchParams] = useSearchParams();
 
   const numDays = !searchParams.get("last")

@@ -1,26 +1,24 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
-/* eslint-disable react/prop-types */
-import Spinner from "./Spinner";
 import styled from "styled-components";
-
-import { useEffect } from "react";
+import { useUser } from "../features/authentication/useUser";
+import Spinner from "./Spinner";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../features/authentication/useUSer";
+import { useEffect } from "react";
 
-const Fullpage = styled.div`
-  height: 100px;
+const FullPage = styled.div`
+  height: 100vh;
+  background-color: var(--color-grey-50);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
-  //1 Load the authenticated user
-  const { isAuthenticated, isLoading } = useUser();
 
-  //2 if there is NO authenticated user redirect to the /Login
+  // 1. Load the authenticated user
+  const { isLoading, isAuthenticated } = useUser();
+
+  // 2. If there is NO authenticated user, redirect to the /login
   useEffect(
     function () {
       if (!isAuthenticated && !isLoading) navigate("/login");
@@ -28,15 +26,15 @@ function ProtectedRoute({ children }) {
     [isAuthenticated, isLoading, navigate]
   );
 
-  //3 while Loading , show the spinner
+  // 3. While loading, show a spinner
   if (isLoading)
     return (
-      <Fullpage>
+      <FullPage>
         <Spinner />
-      </Fullpage>
+      </FullPage>
     );
 
-  //4if there IS a user render the app
+  // 4. If there IS a user, render the app
   if (isAuthenticated) return children;
 }
 

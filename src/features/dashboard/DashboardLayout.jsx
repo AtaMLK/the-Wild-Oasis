@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
-import { useReccentBooking } from "./useRecentBooking";
-import { useReccentStays } from "./useRecentStays";
+import { useRecentStays } from "./useRecentStays";
+import { useRecentBookings } from "./useRecentBookings";
 import Spinner from "../../ui/Spinner";
 import Stats from "./Stats";
-import { UseCabins } from "../cabins/useCabins";
+import { useCabins } from "../cabins/useCabins";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
 import TodayActivity from "../check-in-out/TodayActivity";
@@ -17,14 +16,9 @@ const StyledDashboardLayout = styled.div`
 `;
 
 function DashboardLayout() {
-  const { isLoading: isLoading1, bookings } = useReccentBooking();
-  const {
-    isLoading: isLoading2,
-    stays,
-    confirmedStays,
-    numDays,
-  } = useReccentStays();
-  const { isLoading: isLoading3, cabins } = UseCabins();
+  const { bookings, isLoading: isLoading1 } = useRecentBookings();
+  const { confirmedStays, isLoading: isLoading2, numDays } = useRecentStays();
+  const { cabins, isLoading: isLoading3 } = useCabins();
 
   if (isLoading1 || isLoading2 || isLoading3) return <Spinner />;
 
@@ -32,7 +26,7 @@ function DashboardLayout() {
     <StyledDashboardLayout>
       <Stats
         bookings={bookings}
-        confirmesStays={confirmedStays}
+        confirmedStays={confirmedStays}
         numDays={numDays}
         cabinCount={cabins.length}
       />

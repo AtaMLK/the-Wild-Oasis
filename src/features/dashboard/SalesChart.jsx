@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
 import Heading from "../../ui/Heading";
@@ -25,38 +23,6 @@ const StyledSalesChart = styled(DashboardBox)`
   }
 `;
 
-const fakeData = [
-  { lable: "Jan 09", totalSales: 480, extrasSales: 20 },
-  { lable: "Jan 10", totalSales: 580, extrasSales: 100 },
-  { lable: "Jan 11", totalSales: 550, extrasSales: 150 },
-  { lable: "Jan 12", totalSales: 600, extrasSales: 50 },
-  { lable: "Jan 13", totalSales: 700, extrasSales: 150 },
-  { lable: "Jan 14", totalSales: 800, extrasSales: 150 },
-  { lable: "Jan 15", totalSales: 700, extrasSales: 200 },
-  { lable: "Jan 16", totalSales: 650, extrasSales: 200 },
-  { lable: "Jan 17", totalSales: 600, extrasSales: 300 },
-  { lable: "Jan 18", totalSales: 550, extrasSales: 100 },
-  { lable: "Jan 19", totalSales: 700, extrasSales: 100 },
-  { lable: "Jan 20", totalSales: 800, extrasSales: 200 },
-  { lable: "Jan 21", totalSales: 700, extrasSales: 100 },
-  { lable: "Jan 22", totalSales: 810, extrasSales: 50 },
-  { lable: "Jan 23", totalSales: 950, extrasSales: 250 },
-  { lable: "Jan 24", totalSales: 970, extrasSales: 100 },
-  { lable: "Jan 25", totalSales: 900, extrasSales: 200 },
-  { lable: "Jan 26", totalSales: 950, extrasSales: 300 },
-  { lable: "Jan 27", totalSales: 850, extrasSales: 200 },
-  { lable: "Jan 28", totalSales: 900, extrasSales: 100 },
-  { lable: "Jan 29", totalSales: 800, extrasSales: 300 },
-  { lable: "Jan 30", totalSales: 950, extrasSales: 200 },
-  { lable: "Jan 31", totalSales: 1100, extrasSales: 300 },
-  { lable: "Feb 01", totalSales: 1200, extrasSales: 400 },
-  { lable: "Feb 02", totalSales: 1250, extrasSales: 300 },
-  { lable: "Feb 03", totalSales: 1400, extrasSales: 450 },
-  { lable: "Feb 04", totalSales: 1500, extrasSales: 500 },
-  { lable: "Feb 05", totalSales: 1400, extrasSales: 600 },
-  { lable: "Feb 06", totalSales: 1450, extrasSales: 400 },
-];
-
 function SalesChart({ bookings, numDays }) {
   const { isDarkMode } = useDarkMode();
 
@@ -67,7 +33,7 @@ function SalesChart({ bookings, numDays }) {
 
   const data = allDates.map((date) => {
     return {
-      lable: format(date, "MMM dd"),
+      label: format(date, "MMM dd"),
       totalSales: bookings
         .filter((booking) => isSameDay(date, new Date(booking.created_at)))
         .reduce((acc, cur) => acc + cur.totalPrice, 0),
@@ -76,7 +42,6 @@ function SalesChart({ bookings, numDays }) {
         .reduce((acc, cur) => acc + cur.extrasPrice, 0),
     };
   });
-  console.log(data);
 
   const colors = isDarkMode
     ? {
@@ -91,16 +56,18 @@ function SalesChart({ bookings, numDays }) {
         text: "#374151",
         background: "#fff",
       };
+
   return (
     <StyledSalesChart>
       <Heading as="h2">
-        Sales from {format(allDates.at(0), "MMM dd")} &mdash;
-        {format(allDates.at(-1), "MMM dd")}
+        Sales from {format(allDates.at(0), "MMM dd yyyy")} &mdash;{" "}
+        {format(allDates.at(-1), "MMM dd yyyy")}{" "}
       </Heading>
+
       <ResponsiveContainer height={300} width="100%">
         <AreaChart data={data}>
           <XAxis
-            dataKey="lable"
+            dataKey="label"
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
           />
@@ -109,7 +76,7 @@ function SalesChart({ bookings, numDays }) {
             tick={{ fill: colors.text }}
             tickLine={{ stroke: colors.text }}
           />
-          <CartesianGrid strokeDasharray="6" />
+          <CartesianGrid strokeDasharray="4" />
           <Tooltip contentStyle={{ backgroundColor: colors.background }} />
           <Area
             dataKey="totalSales"
@@ -117,7 +84,7 @@ function SalesChart({ bookings, numDays }) {
             stroke={colors.totalSales.stroke}
             fill={colors.totalSales.fill}
             strokeWidth={2}
-            name="Total Sales"
+            name="Total sales"
             unit="$"
           />
           <Area
@@ -126,7 +93,7 @@ function SalesChart({ bookings, numDays }) {
             stroke={colors.extrasSales.stroke}
             fill={colors.extrasSales.fill}
             strokeWidth={2}
-            name="Extra Sales"
+            name="Extras sales"
             unit="$"
           />
         </AreaChart>

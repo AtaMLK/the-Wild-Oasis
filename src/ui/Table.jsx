@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import { createContext, useContext } from "react";
 import styled from "styled-components";
 
@@ -64,7 +62,7 @@ const Empty = styled.p`
 
 const TableContext = createContext();
 
-function Table({ children, columns }) {
+function Table({ columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
       <StyledTable role="table">{children}</StyledTable>
@@ -88,15 +86,16 @@ function Row({ children }) {
     </StyledRow>
   );
 }
+
 function Body({ data, render }) {
-  if (!data.length)
-    return <Empty>There is no data to show at the moment</Empty>;
+  if (!data.length) return <Empty>No data to show at the moment</Empty>;
+
   return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
 Table.Header = Header;
-Table.Row = Row;
 Table.Body = Body;
+Table.Row = Row;
 Table.Footer = Footer;
 
 export default Table;

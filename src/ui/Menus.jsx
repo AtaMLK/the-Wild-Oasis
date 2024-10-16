@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import { createContext, useContext, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { HiEllipsisVertical } from 'react-icons/hi2';
-import styled from 'styled-components';
-import useOutsideClick from '../hooks/useOutsideClick';
+import { createContext, useContext, useState } from "react";
+import { createPortal } from "react-dom";
+import { HiEllipsisVertical } from "react-icons/hi2";
+import styled from "styled-components";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const Menu = styled.div`
   display: flex;
@@ -32,14 +30,14 @@ const StyledToggle = styled.button`
 `;
 
 const StyledList = styled.ul`
-  position: absolute;
+  position: fixed;
 
   background-color: var(--color-grey-0);
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
 
-  right: ${props => props.position.x}px;
-  top: ${props => props.position.y}px;
+  right: ${(props) => props.position.x}px;
+  top: ${(props) => props.position.y}px;
 `;
 
 const StyledButton = styled.button`
@@ -70,11 +68,12 @@ const StyledButton = styled.button`
 const MenusContext = createContext();
 
 function Menus({ children }) {
-  const [openId, setOpenId] = useState('');
-  const [position, setPosition] = useState();
+  const [openId, setOpenId] = useState("");
+  const [position, setPosition] = useState(null);
 
-  const close = () => setOpenId('');
+  const close = () => setOpenId("");
   const open = setOpenId;
+
   return (
     <MenusContext.Provider
       value={{ openId, close, open, position, setPosition }}
@@ -89,15 +88,14 @@ function Toggle({ id }) {
 
   function handleClick(e) {
     e.stopPropagation();
-    console.log('click');
 
-    const rect = e.target.closest('button').getBoundingClientRect();
-    console.log(openId);
+    const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
-      y: rect.y + rect.height + 8 + window.scrollY,
+      y: rect.y + rect.height + 8,
     });
-    openId === '' || openId !== id ? open(id) : close();
+
+    openId === "" || openId !== id ? open(id) : close();
   }
 
   return (
@@ -106,31 +104,34 @@ function Toggle({ id }) {
     </StyledToggle>
   );
 }
+
 function List({ id, children }) {
   const { openId, position, close } = useContext(MenusContext);
-
-  /* const ref = useOutsideClick(close); */
-  const ref = useOutsideClick(() => close(), false);
+  const ref = useOutsideClick(close, false);
 
   if (openId !== id) return null;
+
   return createPortal(
     <StyledList position={position} ref={ref}>
       {children}
     </StyledList>,
-    document.body,
+    document.body
   );
 }
+
 function Button({ children, icon, onClick }) {
   const { close } = useContext(MenusContext);
+
   function handleClick() {
     onClick?.();
     close();
   }
+
   return (
     <li>
       <StyledButton onClick={handleClick}>
-        <span>{icon}</span>
-        {children}
+        {icon}
+        <span>{children}</span>
       </StyledButton>
     </li>
   );
