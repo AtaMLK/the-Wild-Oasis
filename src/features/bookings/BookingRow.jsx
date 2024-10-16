@@ -17,8 +17,7 @@ import {
   HiTrash,
 } from "react-icons/hi2";
 import { formatDistanceFromNow } from "../../utils/helpers";
-import UseCheckout from "../check-in-out/UseCheckout";
-import { UseBooking } from "./useBooking";
+import useCheckout from "../check-in-out/useCheckout";
 import useDeleteBooking from "./useDeleteBooking";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -71,7 +70,7 @@ function BookingRow({
   };
 
   const navigate = useNavigate();
-  const { checkout, isCheckingOut } = UseCheckout();
+  const { checkout, isCheckingOut } = useCheckout();
   const { deleteBookingRow, isDeleteingBookingRow } = useDeleteBooking();
   return (
     <Table.Row>

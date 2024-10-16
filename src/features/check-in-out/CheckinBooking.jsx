@@ -11,14 +11,12 @@ import ButtonText from "../../ui/ButtonText";
 import ButtonGroup from "../../ui/ButtonGroup";
 
 import Spinner from "../../ui/Spinner";
-import { useNavigate } from "react-router-dom";
-import { UseBooking } from "../bookings/useBooking";
+import { useBooking } from "../bookings/useBooking";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useEffect, useState } from "react";
 import formatCurrency from "../../utils/helpers";
-import UseCheckin from "./UseCheckin";
+import useCheckin from "./useCheckin";
 import useSettings from "../settings/useSetting";
-import { PiCheckThin } from "react-icons/pi";
 
 const Box = styled.div`
   /* Box */
@@ -32,14 +30,14 @@ function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
   const [addBreakfast, setAddBreakfast] = useState(false);
 
-  const { booking, isLoading } = UseBooking();
+  const { booking, isLoading } = useBooking();
 
   const { settings, isLoading: isLoadingSetting } = useSettings();
 
   useEffect(() => setConfirmPaid(booking?.isPaid ?? false), [booking]);
 
   const moveBack = useMoveBack();
-  const { checkin, isCheckingIn } = UseCheckin();
+  const { checkin, isCheckingIn } = useCheckin();
 
   if (isLoading || isLoadingSetting) return <Spinner />;
 
