@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useState } from "react";
-import { createPortal } from "react-dom";
-import { HiEllipsisVertical } from "react-icons/hi2";
-import styled from "styled-components";
-import useOutsideClick from "../hooks/useOutsideClick";
+import { createContext, useContext, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { HiEllipsisVertical } from 'react-icons/hi2';
+import styled from 'styled-components';
+import useOutsideClick from '../hooks/useOutsideClick';
 
 const Menu = styled.div`
   display: flex;
@@ -38,8 +38,8 @@ const StyledList = styled.ul`
   box-shadow: var(--shadow-md);
   border-radius: var(--border-radius-md);
 
-  right: ${(props) => props.position.x}px;
-  top: ${(props) => props.position.y}px;
+  right: ${props => props.position.x}px;
+  top: ${props => props.position.y}px;
 `;
 
 const StyledButton = styled.button`
@@ -70,10 +70,10 @@ const StyledButton = styled.button`
 const MenusContext = createContext();
 
 function Menus({ children }) {
-  const [openId, setOpenId] = useState("");
+  const [openId, setOpenId] = useState('');
   const [position, setPosition] = useState();
 
-  const close = () => setOpenId("");
+  const close = () => setOpenId('');
   const open = setOpenId;
   return (
     <MenusContext.Provider
@@ -88,13 +88,16 @@ function Toggle({ id }) {
   const { openId, close, open, setPosition } = useContext(MenusContext);
 
   function handleClick(e) {
-    const rect = e.target.closest("button").getBoundingClientRect();
+    e.stopPropagation();
+    console.log('click');
+
+    const rect = e.target.closest('button').getBoundingClientRect();
     console.log(openId);
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8 + window.scrollY,
     });
-    openId === "" || openId !== id ? open(id) : close();
+    openId === '' || openId !== id ? open(id) : close();
   }
 
   return (
@@ -114,7 +117,7 @@ function List({ id, children }) {
     <StyledList position={position} ref={ref}>
       {children}
     </StyledList>,
-    document.body
+    document.body,
   );
 }
 function Button({ children, icon, onClick }) {
