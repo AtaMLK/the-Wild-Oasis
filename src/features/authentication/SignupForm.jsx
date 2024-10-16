@@ -1,24 +1,29 @@
-/* eslint-disable no-unused-vars */
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import useSignup from "./useSignup";
+import { useSignup } from "./useSignup";
 
 // Email regex: /\S+@\S+\.\S+/
 
 function SignupForm() {
   const { signup, isLoading } = useSignup();
-  const { formState, register, getValues, handleSubmit, reset } = useForm();
+  const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
   function onSubmit({ fullName, email, password }) {
-    signup({ fullName, email, password }, { onSettled: () => reset() });
+    signup(
+      { fullName, email, password },
+      {
+        onSettled: () => reset(),
+      }
+    );
   }
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow lable="Full name" error={errors.fullName?.message}>
+      <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
           type="text"
           id="fullName"
@@ -27,7 +32,7 @@ function SignupForm() {
         />
       </FormRow>
 
-      <FormRow lable="Email address" error={errors.email?.message}>
+      <FormRow label="Email address" error={errors?.email?.message}>
         <Input
           type="email"
           id="email"
@@ -36,15 +41,15 @@ function SignupForm() {
             required: "This field is required",
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: "Please enter the valid email address",
+              message: "Please provide a valid email address",
             },
           })}
         />
       </FormRow>
 
       <FormRow
-        lable="Password (min 8 characters)"
-        error={errors.password?.message}
+        label="Password (min 8 characters)"
+        error={errors?.password?.message}
       >
         <Input
           type="password"
@@ -54,13 +59,13 @@ function SignupForm() {
             required: "This field is required",
             minLength: {
               value: 8,
-              message: "Password should be minimum of 8 characters",
+              message: "Password needs a minimum of 8 characters",
             },
           })}
         />
       </FormRow>
 
-      <FormRow lable="Repeat password" error={errors.passwordConfirm?.message}>
+      <FormRow label="Repeat password" error={errors?.passwordConfirm?.message}>
         <Input
           type="password"
           id="passwordConfirm"
@@ -68,7 +73,7 @@ function SignupForm() {
           {...register("passwordConfirm", {
             required: "This field is required",
             validate: (value) =>
-              value === getValues().password || "Password do not match ",
+              value === getValues().password || "Passwords need to match",
           })}
         />
       </FormRow>
@@ -83,7 +88,7 @@ function SignupForm() {
         >
           Cancel
         </Button>
-        <Button>Create new user</Button>
+        <Button disabled={isLoading}>Create new user</Button>
       </FormRow>
     </Form>
   );

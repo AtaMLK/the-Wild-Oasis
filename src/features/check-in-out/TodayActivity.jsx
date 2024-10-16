@@ -1,8 +1,8 @@
-/* eslint-disable no-unused-vars */
 import styled from "styled-components";
 
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
+
 import { useTodayActivity } from "./useTodayActivity";
 import Spinner from "../../ui/Spinner";
 import TodayItem from "./TodayItem";
@@ -41,7 +41,7 @@ const NoActivity = styled.p`
 `;
 
 function TodayActivity() {
-  const { isLoading, activities } = useTodayActivity();
+  const { activities, isLoading } = useTodayActivity();
 
   return (
     <StyledToday>
@@ -57,7 +57,7 @@ function TodayActivity() {
             ))}
           </TodayList>
         ) : (
-          <NoActivity>No activity for today ...</NoActivity>
+          <NoActivity>No activity today...</NoActivity>
         )
       ) : (
         <Spinner />

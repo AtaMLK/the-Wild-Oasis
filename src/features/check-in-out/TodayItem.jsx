@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
 import styled from "styled-components";
-import Tag from "../../ui/Tag";
-import Button from "../../ui/Button";
-import { Flag } from "../../ui/Flag";
 import { Link } from "react-router-dom";
+
+import Tag from "../../ui/Tag";
+import { Flag } from "../../ui/Flag";
+import Button from "../../ui/Button";
 import CheckoutButton from "./CheckoutButton";
 
 const StyledTodayItem = styled.li`
@@ -25,14 +24,16 @@ const StyledTodayItem = styled.li`
 const Guest = styled.div`
   font-weight: 500;
 `;
+
 function TodayItem({ activity }) {
-  const { status, guests, id, numNights } = activity;
+  const { id, status, guests, numNights } = activity;
+
   return (
     <StyledTodayItem>
       {status === "unconfirmed" && <Tag type="green">Arriving</Tag>}
       {status === "checked-in" && <Tag type="blue">Departing</Tag>}
 
-      {<Flag src={guests.countryFlag} alt={`Flag of ${guests.country}`} />}
+      <Flag src={guests.countryFlag} alt={`Flag of ${guests.country}`} />
       <Guest>{guests.fullName}</Guest>
       <div>{numNights} nights</div>
 
@@ -41,14 +42,12 @@ function TodayItem({ activity }) {
           size="small"
           variation="primary"
           as={Link}
-          to={`/checkIn/${id}`}
+          to={`/checkin/${id}`}
         >
-          Check In
+          Check in
         </Button>
       )}
-      {status === "checked-in" && (
-        <CheckoutButton bookingId={id}>Check Out</CheckoutButton>
-      )}
+      {status === "checked-in" && <CheckoutButton bookingId={id} />}
     </StyledTodayItem>
   );
 }

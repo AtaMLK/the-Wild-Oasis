@@ -1,49 +1,52 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-import { HiOutlineBriefcase, HiOutlineChartBar } from "react-icons/hi";
+import {
+  HiOutlineBanknotes,
+  HiOutlineBriefcase,
+  HiOutlineCalendarDays,
+  HiOutlineChartBar,
+} from "react-icons/hi2";
 import Stat from "./Stat";
-import { HiOutlineBanknotes, HiOutlineCalendarDays } from "react-icons/hi2";
-import formatCurrency from "../../utils/helpers";
+import { formatCurrency } from "../../utils/helpers";
 
-function Stats({ bookings, confirmesStays, numDays, cabinCount }) {
-  //-1
+function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
+  // 1.
   const numBookings = bookings.length;
 
-  //-2
+  // 2.
   const sales = bookings.reduce((acc, cur) => acc + cur.totalPrice, 0);
 
-  //-3
-  const checkins = confirmesStays.length;
+  // 3.
+  const checkins = confirmedStays.length;
 
-  //-4
+  // 4.
   const occupation =
-    confirmesStays.reduce((acc, cur) => acc + cur.numNights, 0) /
+    confirmedStays.reduce((acc, cur) => acc + cur.numNights, 0) /
     (numDays * cabinCount);
+  // num checked in nights / all available nights (num days * num cabins)
 
   return (
     <>
       <Stat
-        icon={<HiOutlineBriefcase />}
         title="Bookings"
         color="blue"
+        icon={<HiOutlineBriefcase />}
         value={numBookings}
       />
       <Stat
-        icon={<HiOutlineBanknotes />}
-        title="Bookings"
+        title="Sales"
         color="green"
+        icon={<HiOutlineBanknotes />}
         value={formatCurrency(sales)}
       />
       <Stat
-        icon={<HiOutlineCalendarDays />}
-        title="Bookings"
+        title="Check ins"
         color="indigo"
+        icon={<HiOutlineCalendarDays />}
         value={checkins}
       />
       <Stat
-        icon={<HiOutlineChartBar />}
-        title="Bookings"
+        title="Occupancy rate"
         color="yellow"
+        icon={<HiOutlineChartBar />}
         value={Math.round(occupation * 100) + "%"}
       />
     </>
