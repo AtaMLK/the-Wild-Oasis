@@ -1,33 +1,33 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import styled from "styled-components";
-import { format, isToday } from "date-fns";
+import styled from 'styled-components';
+import { format, isToday } from 'date-fns';
 
-import Tag from "../../ui/Tag";
-import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
+import Tag from '../../ui/Tag';
+import Table from '../../ui/Table';
+import Menus from '../../ui/Menus';
 
-import { HiEye } from "react-icons/hi";
-import { useNavigate } from "react-router-dom";
-import { formatCurrency } from "../../utils/helpers";
+import { HiEye } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
+import { formatCurrency } from '../../utils/helpers';
 import {
   HiArrowDownOnSquare,
   HiArrowUpOnSquare,
   HiTrash,
-} from "react-icons/hi2";
-import { formatDistanceFromNow } from "../../utils/helpers";
-import UseCheckout from "../check-in-out/UseCheckout";
-import { UseBooking } from "./useBooking";
-import useDeleteBooking from "./useDeleteBooking";
-import Modal from "../../ui/Modal";
-import ConfirmDelete from "../../ui/ConfirmDelete";
+} from 'react-icons/hi2';
+import { formatDistanceFromNow } from '../../utils/helpers';
+import UseCheckout from '../check-in-out/UseCheckout';
+
+import useDeleteBooking from './useDeleteBooking';
+import Modal from '../../ui/Modal';
+import ConfirmDelete from '../../ui/ConfirmDelete';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
-  font-family: "Sono";
+  font-family: 'Sono';
 `;
 
 const Stacked = styled.div`
@@ -46,7 +46,7 @@ const Stacked = styled.div`
 `;
 
 const Amount = styled.div`
-  font-family: "Sono";
+  font-family: 'Sono';
   font-weight: 500;
 `;
 
@@ -65,9 +65,9 @@ function BookingRow({
   },
 }) {
   const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
+    unconfirmed: 'blue',
+    'checked-in': 'green',
+    'checked-out': 'silver',
   };
 
   const navigate = useNavigate();
@@ -85,17 +85,17 @@ function BookingRow({
       <Stacked>
         <span>
           {isToday(new Date(startDate))
-            ? "Today"
-            : formatDistanceFromNow(startDate)}{" "}
+            ? 'Today'
+            : formatDistanceFromNow(startDate)}{' '}
           &rarr; {numNights} night stay
         </span>
         <span>
-          {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
-          {format(new Date(endDate), "MMM dd yyyy")}
+          {format(new Date(startDate), 'MMM dd yyyy')} &mdash;{' '}
+          {format(new Date(endDate), 'MMM dd yyyy')}
         </span>
       </Stacked>
 
-      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+      <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
 
@@ -109,7 +109,7 @@ function BookingRow({
             >
               See Details
             </Menus.Button>
-            {status === "unconfirmed" && (
+            {status === 'unconfirmed' && (
               <Menus.Button
                 icon={<HiArrowDownOnSquare />}
                 onClick={() => navigate(`/checkin/${bookingId}`)}
@@ -117,7 +117,7 @@ function BookingRow({
                 Check In
               </Menus.Button>
             )}
-            {status === "checked-in" && (
+            {status === 'checked-in' && (
               <Menus.Button
                 icon={<HiArrowUpOnSquare />}
                 onClick={() => checkout(bookingId)}

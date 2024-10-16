@@ -1,24 +1,24 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import styled from "styled-components";
-import BookingDataBox from "../../features/bookings/BookingDataBox";
+import styled from 'styled-components';
+import BookingDataBox from '../../features/bookings/BookingDataBox';
 
-import Row from "../../ui/Row";
-import Button from "../../ui/Button";
-import Checkbox from "../../ui/Checkbox";
-import Heading from "../../ui/Heading";
-import ButtonText from "../../ui/ButtonText";
-import ButtonGroup from "../../ui/ButtonGroup";
+import Row from '../../ui/Row';
+import Button from '../../ui/Button';
+import Checkbox from '../../ui/Checkbox';
+import Heading from '../../ui/Heading';
+import ButtonText from '../../ui/ButtonText';
+import ButtonGroup from '../../ui/ButtonGroup';
 
-import Spinner from "../../ui/Spinner";
-import { useNavigate } from "react-router-dom";
-import { UseBooking } from "../bookings/useBooking";
-import { useMoveBack } from "../../hooks/useMoveBack";
-import { useEffect, useState } from "react";
-import formatCurrency from "../../utils/helpers";
-import UseCheckin from "./UseCheckin";
-import useSettings from "../settings/useSetting";
-import { PiCheckThin } from "react-icons/pi";
+import Spinner from '../../ui/Spinner';
+import { useNavigate } from 'react-router-dom';
+import { useBooking } from '../bookings/useBooking';
+import { useMoveBack } from '../../hooks/useMoveBack';
+import { useEffect, useState } from 'react';
+import formatCurrency from '../../utils/helpers';
+import UseCheckin from './UseCheckin';
+import useSettings from '../settings/useSetting';
+import { PiCheckThin } from 'react-icons/pi';
 
 const Box = styled.div`
   /* Box */
@@ -32,7 +32,7 @@ function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
   const [addBreakfast, setAddBreakfast] = useState(false);
 
-  const { booking, isLoading } = UseBooking();
+  const { booking, isLoading } = useBooking();
 
   const { settings, isLoading: isLoadingSetting } = useSettings();
 
@@ -86,12 +86,12 @@ function CheckinBooking() {
             checked={addBreakfast}
             onChange={() => {
               // Toggle addBreakfast state
-              setAddBreakfast((add) => !add);
+              setAddBreakfast(add => !add);
               // Reset confirmPaid when breakfast is toggled
               setConfirmPaid(false);
             }}
           >
-            {" "}
+            {' '}
             want to add breakfast for
             {formatCurrency(optionalBreakfastPrice)}
           </Checkbox>
@@ -101,15 +101,15 @@ function CheckinBooking() {
       <Box>
         <Checkbox
           checked={!!confirmPaid}
-          onChange={() => setConfirmPaid((confirm) => !confirm)}
+          onChange={() => setConfirmPaid(confirm => !confirm)}
           id="confirm"
           disabled={confirmPaid || isCheckingIn}
         >
-          I confitm that {guests.fullName} has paid the total amount.{""}
+          I confitm that {guests.fullName} has paid the total amount.{''}
           {!addBreakfast
             ? formatCurrency(totalPrice)
             : `${formatCurrency(
-                totalPrice + optionalBreakfastPrice
+                totalPrice + optionalBreakfastPrice,
               )} (${formatCurrency(totalPrice)} +
                 ${formatCurrency(optionalBreakfastPrice)}
               )`}
@@ -117,7 +117,7 @@ function CheckinBooking() {
       </Box>
       <ButtonGroup>
         <Button onClick={handleCheckin} disabled={!confirmPaid || isCheckingIn}>
-          Check in booking #{bookingId}{" "}
+          Check in booking #{bookingId}{' '}
         </Button>
         <Button variation="secondary" onClick={moveBack}>
           Back

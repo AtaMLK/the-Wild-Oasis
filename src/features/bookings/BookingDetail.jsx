@@ -11,7 +11,7 @@ import Button from '../../ui/Button';
 import ButtonText from '../../ui/ButtonText';
 
 import { useMoveBack } from '../../hooks/useMoveBack';
-import { UseBooking } from './useBookingsseBooking';
+import { useBooking } from './useBooking';
 import { useNavigate } from 'react-router-dom';
 import { HiArrowUpOnSquare, HiTrash } from 'react-icons/hi2';
 import UseCheckout from '../check-in-out/UseCheckout';
@@ -28,7 +28,7 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const navigate = useNavigate();
-  const { booking, isLoading } = UseBooking();
+  const { booking, isLoading } = useBooking();
   const { checkout, isCheckingout } = UseCheckout();
   const { deleteBookingRow, isDeleteingBookingRow } = useDeleteBooking();
 
