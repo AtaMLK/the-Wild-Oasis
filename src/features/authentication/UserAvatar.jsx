@@ -26,13 +26,28 @@ function UserAvatar() {
   const { user } = useUser();
   const { fullName, avatar } = user.user_metadata;
 
+<<<<<<< HEAD
+  console.log(user); // Log out user object to inspect the fullName field
+
+  // Check if fullName is an object or string
+  const fullNameString =
+    typeof fullName === 'string' ? fullName : JSON.stringify(fullName);
+
+=======
+>>>>>>> auth
   return (
     <StyledUserAvatar>
       <Avatar
         src={avatar || 'default-user.jpg'}
+<<<<<<< HEAD
+        alt={`Avatar of ${fullNameString}`}
+      />
+      <span>{fullNameString}</span> {/* Render fullName as a string */}
+=======
         alt={`Avatar of ${fullName}`}
       />
       <span>{fullName}</span>
+>>>>>>> auth
     </StyledUserAvatar>
   );
 }
