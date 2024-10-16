@@ -1,5 +1,9 @@
 /* eslint-disable no-unused-vars */
+<<<<<<< HEAD
 import { useState } from 'react';
+=======
+import { useState } from "react";
+>>>>>>> auth
 
 import Button from '../../ui/Button';
 import FileInput from '../../ui/FileInput';
@@ -7,8 +11,13 @@ import Form from '../../ui/Form';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 
+<<<<<<< HEAD
 import { useUser } from './useUser';
 import useUpdateUser from './useUpdateUser';
+=======
+import { useUser } from "./useUser";
+import useUpdateUser from "./useUpdateUser";
+>>>>>>> auth
 
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
@@ -34,7 +43,11 @@ function UpdateUserDataForm() {
           setAvatar(null);
           e.target.reset();
         },
+<<<<<<< HEAD
       },
+=======
+      }
+>>>>>>> auth
     );
   }
   function handleCancel() {
@@ -60,7 +73,11 @@ function UpdateUserDataForm() {
         <FileInput
           id="avatar"
           accept="image/*"
+<<<<<<< HEAD
           onChange={e => setAvatar(e.target.files[0])}
+=======
+          onChange={(e) => setAvatar(e.target.files[0])}
+>>>>>>> auth
           disabled={isUpdating}
         />
       </FormRow>

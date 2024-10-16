@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import supabase, { supabaseUrl } from './supabase';
+=======
+import supabase, { supabaseUrl } from "./supabase";
+>>>>>>> auth
 
 export async function signup({ fullName, email, password }) {
   const { data, error } = await supabase.auth.signUp({
@@ -7,7 +11,11 @@ export async function signup({ fullName, email, password }) {
     options: {
       data: {
         fullName,
+<<<<<<< HEAD
         avatar: '',
+=======
+        avatar: "",
+>>>>>>> auth
       },
     },
   });
@@ -43,11 +51,23 @@ export async function signOut() {
   if (error) throw new Error(error.message);
 }
 
+<<<<<<< HEAD
 export async function updateCurrentUser({ password, fullName, avatar }) {
   // 1. Update password OR fullName
   let updateData;
   if (password) updateData = { password };
   if (fullName) updateData = { data: { fullName } };
+=======
+export async function updateCurrentUser({ fullName, password, avatar }) {
+  const { data: currentUser, error: fetchError } =
+    await supabase.auth.getUser();
+  if (fetchError) throw new Error(fetchError.message);
+  //-1 Update password or fullName
+
+  let updateData;
+  if (password) updateData = { password };
+  if (fullName) updateData = { fullName };
+>>>>>>> auth
 
   const { data, error } = await supabase.auth.updateUser(updateData);
 
@@ -57,9 +77,14 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
   // 2. Upload the avatar image
   const fileName = `avatar-${data.user.id}-${Math.random()}`;
 
+<<<<<<< HEAD
 
   const { error: storageError } = await supabase.storage
     .from('avatars')
+=======
+  const { error: storageError } = await supabase.storage
+    .from("avatars")
+>>>>>>> auth
     .upload(fileName, avatar);
 
   if (storageError) throw new Error(storageError.message);
@@ -67,6 +92,11 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
   // 3. Update avatar in the user
   const { data: updatedUser, error: error2 } = await supabase.auth.updateUser({
     data: {
+<<<<<<< HEAD
+=======
+      ...currentUser.user_metadata,
+      fullName,
+>>>>>>> auth
       avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
     },
   });

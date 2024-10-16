@@ -75,7 +75,16 @@ function SignupForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
+<<<<<<< HEAD
         <Button variation="secondary" type="reset" disabled={isLoading}>
+=======
+        <Button
+          variation="secondary"
+          type="reset"
+          disabled={isLoading}
+          onClick={reset}
+        >
+>>>>>>> auth
           Cancel
         </Button>
         <Button>Create new user</Button>
