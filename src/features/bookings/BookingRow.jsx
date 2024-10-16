@@ -6,10 +6,11 @@ import {
   HiEye,
   HiTrash,
 } from "react-icons/hi2";
-import { useNavigate } from "react-router-dom";
 
-import Tag from "../../ui/Tag";
-import Table from "../../ui/Table";
+import { formatDistanceFromNow } from "../../utils/helpers";
+import useCheckout from "../check-in-out/useCheckout";
+import useDeleteBooking from "./useDeleteBooking";
+
 import Modal from "../../ui/Modal";
 import Menus from "../../ui/Menus";
 import ConfirmDelete from "../../ui/ConfirmDelete";
@@ -69,6 +70,11 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
+
+
+  const navigate = useNavigate();
+  const { checkout, isCheckingOut } = useCheckout();
+  const { deleteBookingRow, isDeleteingBookingRow } = useDeleteBooking();
 
   return (
     <Table.Row>

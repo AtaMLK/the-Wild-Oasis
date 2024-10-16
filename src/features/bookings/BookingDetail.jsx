@@ -1,7 +1,13 @@
+
+/* eslint-disable no-unused-vars */
+
 import styled from "styled-components";
 
 import BookingDataBox from "./BookingDataBox";
 import Row from "../../ui/Row";
+
+import Spinner from "../../ui/Spinner";
+
 import Heading from "../../ui/Heading";
 import Tag from "../../ui/Tag";
 import ButtonGroup from "../../ui/ButtonGroup";
@@ -10,13 +16,14 @@ import ButtonText from "../../ui/ButtonText";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "./useBooking";
-import Spinner from "../../ui/Spinner";
+
 import { useNavigate } from "react-router-dom";
-import { HiArrowUpOnSquare } from "react-icons/hi2";
-import { useCheckout } from "../check-in-out/useCheckout";
+import { HiArrowUpOnSquare, HiTrash } from "react-icons/hi2";
+import UseCheckout from "../check-in-out/useCheckout";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
-import { useDeleteBooking } from "./useDeleteBooking";
+import useDeleteBooking from "./useDeleteBooking";
+
 import Empty from "../../ui/Empty";
 
 const HeadingGroup = styled.div`
@@ -26,9 +33,12 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
+
+  const navigate = useNavigate();
   const { booking, isLoading } = useBooking();
-  const { checkout, isCheckingOut } = useCheckout();
-  const { deleteBooking, isDeleting } = useDeleteBooking();
+  const { checkout, isCheckingout } = UseCheckout();
+  const { deleteBookingRow, isDeleteingBookingRow } = useDeleteBooking();
+
 
   const moveBack = useMoveBack();
   const navigate = useNavigate();
@@ -57,11 +67,14 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        {status === "unconfirmed" && (
+
+        {status === "uncorfirmed" && (
+
           <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
             Check in
           </Button>
         )}
+
 
         {status === "checked-in" && (
           <Button

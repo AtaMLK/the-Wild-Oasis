@@ -8,13 +8,16 @@ import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 import Spinner from "../../ui/Spinner";
 
+import { useBooking } from "../bookings/useBooking";
+
 import { useMoveBack } from "../../hooks/useMoveBack";
 import { useBooking } from "../bookings/useBooking";
 import { useEffect, useState } from "react";
-import Checkbox from "../../ui/Checkbox";
-import { formatCurrency } from "../../utils/helpers";
-import { useCheckin } from "./useCheckin";
-import { useSettings } from "../settings/useSettings";
+
+import formatCurrency from "../../utils/helpers";
+import useCheckin from "./useCheckin";
+import useSettings from "../settings/useSetting";
+
 
 const Box = styled.div`
   /* Box */
@@ -27,8 +30,12 @@ const Box = styled.div`
 function CheckinBooking() {
   const [confirmPaid, setConfirmPaid] = useState(false);
   const [addBreakfast, setAddBreakfast] = useState(false);
+
+
   const { booking, isLoading } = useBooking();
-  const { settings, isLoading: isLoadingSettings } = useSettings();
+
+  const { settings, isLoading: isLoadingSetting } = useSettings();
+
 
   useEffect(() => setConfirmPaid(booking?.isPaid ?? false), [booking]);
 
