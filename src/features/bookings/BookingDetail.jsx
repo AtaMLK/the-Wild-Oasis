@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 
 import BookingDataBox from './BookingDataBox';
@@ -28,23 +27,23 @@ const HeadingGroup = styled.div`
 
 function BookingDetail() {
   const navigate = useNavigate();
-  const { booking, isLoading } = useBooking();
+  const { booking, isLoading, error } = useBooking(); // Error handling added here
   const { checkout, isCheckingout } = UseCheckout();
   const { deleteBookingRow, isDeleteingBookingRow } = useDeleteBooking();
-
   const moveBack = useMoveBack();
 
-  if (!booking) return <p>No Bookings</p>;
-  const { status, id: bookingId } = booking;
-
   if (isLoading) return <Spinner />;
+  if (error) return <p>Error loading booking: {error.message}</p>;
   if (!booking) return <Empty resourceName="booking" />;
+
+  const { status, id: bookingId } = booking;
 
   const statusToTagName = {
     unconfirmed: 'blue',
     'checked-in': 'green',
     'checked-out': 'silver',
   };
+
   return (
     <>
       <Row type="horizontal">
@@ -58,7 +57,7 @@ function BookingDetail() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        {status === 'uncorfirmed' && (
+        {status === 'unconfirmed' && (
           <Button onClick={() => navigate(`/checkin/${bookingId}`)}>
             Check In
           </Button>
@@ -91,7 +90,7 @@ function BookingDetail() {
             <ConfirmDelete
               resourceName="booking"
               onConfirm={() => {
-                deleteBookingRow(bookingId, { onSettled: navigate(-1) });
+                deleteBookingRow(bookingId, { onSettled: () => navigate(-1) });
               }}
             />
           </Modal.Window>
