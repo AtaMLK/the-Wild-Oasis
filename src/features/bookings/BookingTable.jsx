@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import BookingRow from "./BookingRow";
-import Table from "../../ui/Table";
-import Spinner from "../../ui/Spinner";
-import Empty from "../../ui/Empty";
-import Menus from "../../ui/Menus";
-import { useBookings } from "./useBookings";
-import Pagination from "../../ui/Pagination";
+import BookingRow from './BookingRow';
+import Table from '../../ui/Table';
+import Spinner from '../../ui/Spinner';
+import Empty from '../../ui/Empty';
+import Menus from '../../ui/Menus';
+import { useBookings } from './useBookings';
+import Pagination from '../../ui/Pagination';
 
 function BookingTable() {
   const { isLoading, bookings, error, count } = useBookings();
@@ -27,9 +27,7 @@ function BookingTable() {
 
         <Table.Body
           data={bookings}
-          render={(booking) => (
-            <BookingRow key={booking.id} booking={booking} />
-          )}
+          render={booking => <BookingRow key={booking.id} booking={booking} />}
         />
         <Table.Footer>
           <Pagination count={count} />
